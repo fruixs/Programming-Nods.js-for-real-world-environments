@@ -1,0 +1,61 @@
+.cel{
+	border: 1px solid #999999;
+	float:left;
+	width:100px;
+	height:100px;
+}
+
+.cel li{
+	font-size:12px;
+}
+
+.cel_dummy{
+	border: 1px solid #999999;
+	float:left;
+	width:100px;
+	height:100px;
+}
+.yoil{
+	height:40px;
+}
+.blue{
+	color:blue;
+}
+.red{
+	color:red;
+}
+.bold{
+	font-weight:bold;
+}
+.box_center{
+	display: -webkit-box;
+	-webkit-box-orient: horizontal;
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+}
+
+#calMain{
+	margin-left:50px;
+	margin-top:50px;
+	width:714px;
+}
+
+.prevMonth{
+	margin-left: 50px;
+	float:left;
+	width:200px;
+	height:70px;
+}
+
+.currentMonth{
+	float:left;
+	width:314px;
+	height:70px;
+	font-size:30px;
+}
+
+.nextMonth{
+	float:left;
+	width:200px;
+	height:70px;
+}

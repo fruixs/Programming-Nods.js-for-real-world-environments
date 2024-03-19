@@ -1,0 +1,102 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="js/cal.js"></script>
+<link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+</head>
+<style>
+
+</style>
+
+<script>
+//년도 월 전역변수 
+var year = (new Date()).getFullYear();
+var month = (new Date()).getMonth() + 1;
+
+$(document).ready(function(){
+	
+	setTitle(year,month);
+	initCal(year,month);
+	
+	setEvent();
+	
+	//5초마다 데이터 조회
+	setInterval(function(){UpdateDate();}, 5000);
+});
+
+
+function setEvent(){
+	//일정 가져오기 
+	UpdateDate();
+	//이벤트 제거
+	$('.cel').unbind('click');
+	//클릭시 이벤트 추가
+	$('.cel').bind('click',function(){
+		
+		var str = $(this).attr('id');
+		str = str + " 일정을 등록 해주세요!"
+		
+		var pmt =prompt(str);
+		
+		if(pmt != null){
+			//저장 
+			var formData = "date=" + $(this).attr('id') + "&contents=" + pmt;
+			$.ajax({
+				type: "POST",
+				url: '/createTask',
+				data: formData,
+				success: function() {
+					UpdateDate();
+				}
+			});
+			
+		}else{
+			alert('일정이 등록되지 않았습니다.');
+		}
+	});
+	
+}
+
+function UpdateDate(){
+	//List REST API 호출
+	$.ajax({
+		type: "POST",
+		url: '/list',
+		success: function(data) {
+			//받은값 객체화
+			var _tmp = JSON.parse(data);
+			
+			//셀의 li 전체 삭제
+			$('.cel li').remove();
+			
+			//받은 데이터를 셀마다 등록
+			for(var key in _tmp){
+				$('#' + _tmp[key].date ).append('<li>' + _tmp[key].contents + '</li>');
+			}
+		}
+	});
+}
+</script>
+
+<body>
+<div class = 'prevMonth box_center'></div>
+<div class = 'currentMonth box_center bold'></div>
+<div class = 'nextMonth box_center'></div>
+<div id = 'calMain'>
+	<div>
+		<div class = 'cel yoil box_center red'>일</div>
+		<div class = 'cel yoil box_center'>월</div>
+		<div class = 'cel yoil box_center'>화</div>
+		<div class = 'cel yoil box_center'>수</div>
+		<div class = 'cel yoil box_center'>목</div>
+		<div class = 'cel yoil box_center'>금</div>
+		<div class = 'cel yoil box_center blue'>토</div>
+	</div>
+	<div id = 'calMain_day'>
+	</div>
+</div>
+
+</body>
+</html>

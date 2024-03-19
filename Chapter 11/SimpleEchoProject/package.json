@@ -1,0 +1,11 @@
+{
+  "name": "SimpleEchoProject",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node socket.io.server.js"
+  },
+  "dependencies": {
+    "socket.io": "*"
+  }
+}
